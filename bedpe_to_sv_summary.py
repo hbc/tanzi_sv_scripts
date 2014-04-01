@@ -132,9 +132,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description = "Convert a lumpy bedpe file to a high level report of called SVs.")
     parser.add_argument('input', help='Input BEDPE file containing calls')
-    parser.add_argument('--cyto', '-c', help='BED file of Cytobands [REQUIRED]', required=True)
-    parser.add_argument('--repeat', '-r', help='BED file of Repeats [REQUIRED]', required=True)
-    parser.add_argument('--gene', '-g', help='BED file of Genes [REQUIRED]', required=True)
+    parser.add_argument('--cyto', '-c', help='BED file of Cytobands [%(default)s]', default=os.path.dirname(os.path.abspath(__file__))+'/reference_files/b37_cytobands.bed.gz')
+    parser.add_argument('--repeat', '-r', help='BED file of Repeats [%(default)s]', default=os.path.dirname(os.path.abspath(__file__))+'/reference_files/b37_repeats.sorted.bed.gz')
+    parser.add_argument('--gene', '-g', help='BED file of Genes [%(default)s]', default=os.path.dirname(os.path.abspath(__file__))+'/reference_files/b37_exons.bed.gz')
     args = parser.parse_args()
     verify_file(args.input)
     verify_file(args.cyto)
