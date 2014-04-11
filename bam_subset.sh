@@ -35,8 +35,8 @@ outname=$(echo $POS | sed -r 's/\:/_/g')
 bn=$(basename $BAM)
 
 echo "Copying files to destination"
-scp ${FILE}.bam ${SSH_LOC}/${bn%.bam}.${outname}.bam
-scp ${FILE}.bam.bai ${SSH_LOC}/${bn%.bam}.${outname}.bam.bai
+rsync -av --progress ${FILE}.bam ${SSH_LOC}/${bn%.bam}.${outname}.bam
+rsync -av --progress ${FILE}.bam.bai ${SSH_LOC}/${bn%.bam}.${outname}.bam.bai
 
 rm -f $FILE*
 echo "done"
