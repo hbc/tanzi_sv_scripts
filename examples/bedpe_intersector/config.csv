@@ -1,0 +1,4 @@
+sample,caller,file
+NA12878,lumpy,NA12878.del.chr21.lumpy.bedpe
+NA12878,delly,NA12878.del.chr21.delly.bedpe
+NA12878,cnmops,NA12878.del.chr21.cnmops.bedpe
