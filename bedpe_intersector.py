@@ -81,7 +81,7 @@ def pairtopair(filea, fileb, inception):
             prev_line_a[1] = min(b1_s)
             prev_line_a[2] = max(b1_e)
             prev_line_a[4] = min(b2_s)
-            prev_line_a[5] = min(b2_e)
+            prev_line_a[5] = max(b2_e)
             return_file.write('\t'.join(prev_line_a[0:11]))
             return_file.write(names + '*\n')
             prev_line_a = a
@@ -93,7 +93,7 @@ def pairtopair(filea, fileb, inception):
     prev_line_a[1] = min(b1_s)
     prev_line_a[2] = max(b1_e)
     prev_line_a[4] = min(b2_s)
-    prev_line_a[5] = min(b2_e)
+    prev_line_a[5] = max(b2_e)
     return_file.write('\t'.join(prev_line_a[0:11]))
     return_file.write(names + '*\n')
     prev_line_a = a
