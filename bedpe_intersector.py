@@ -60,14 +60,10 @@ def pairtopair(filea, fileb, inception):
     check_result(call(["pairToPair","-a",filea,"-b",fileb], stdout=result_file_b))
     result_file_b.seek(0)
     prev_line_a = result_file_b.readline().rstrip("\n").split("\t")
-    b1_s = [prev_line_a[1]]
-    b1_e = [prev_line_a[2]]
-    b2_s = [prev_line_a[4]]
-    b2_e = [prev_line_a[5]]
-    b1_s.append(prev_line_a[12])
-    b1_e.append(prev_line_a[13])
-    b2_s.append(prev_line_a[15])
-    b2_e.append(prev_line_a[16])
+    b1_s = [prev_line_a[1], prev_line_a[12]]
+    b1_e = [prev_line_a[2], prev_line_a[13]]
+    b2_s = [prev_line_a[4], prev_line_a[15]]
+    b2_e = [prev_line_a[5], prev_line_a[16]]
     names = prev_line_a[17]
     for line in result_file_b:
         a = line.rstrip("\n").split("\t")
@@ -85,14 +81,10 @@ def pairtopair(filea, fileb, inception):
             return_file.write('\t'.join(prev_line_a[0:11]))
             return_file.write(names + '*\n')
             prev_line_a = a
-            b1_s = [prev_line_a[1]]
-            b1_e = [prev_line_a[2]]
-            b2_s = [prev_line_a[4]]
-            b2_e = [prev_line_a[5]]
-            b1_s.append(prev_line_a[12])
-            b1_e.append(prev_line_a[13])
-            b2_s.append(prev_line_a[15])
-            b2_e.append(prev_line_a[16])
+            b1_s = [prev_line_a[1], prev_line_a[12]]
+            b1_e = [prev_line_a[2], prev_line_a[13]]
+            b2_s = [prev_line_a[4], prev_line_a[15]]
+            b2_e = [prev_line_a[5], prev_line_a[16]]
             names = prev_line_a[17]
     prev_line_a[1] = min(b1_s)
     prev_line_a[2] = max(b1_e)
@@ -122,8 +114,6 @@ def pairtopair(filea, fileb, inception):
     check_result(call(["sort","-k","1,1","-k","4,4","-k","2,2n","-k","5,5n","-k","3,3n","-k","6,6n",return_file.name], stdout=return_file_sorted))
     os.unlink(return_file.name)
     return_file_sorted.seek(0)
-    #for line in return_file_sorted:
-        #print line.rstrip('\n')
     return return_file_sorted
      
 def check_result(ret_code):
