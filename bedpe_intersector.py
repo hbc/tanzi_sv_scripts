@@ -24,18 +24,22 @@ def main(bedpe_list):
         raise IOError("The config file doesn't appear to be formatted correctly")
     #first file is current file
     first = bedpe_list.readline().rstrip("\n").split(",")
+    header = ['chr1', 'start1', 'end1', 'chr2', 'start2', 'end2']
     sys.stderr.write("Working on %s\n" % first[2])
+    header.append(first[0] + '_' + first[1])
     master_file = prep_file(first[2], 10, True)
     count = 0
     for line in bedpe_list:
         count += 1
         line_a = line.rstrip("\n").split(",")
         sys.stderr.write("Working on %s\n" % line_a[2])
+        header.append(line_a[0] + '_' + line_a[1])
         curr_file = prep_file(line_a[2], 10, False)
         new_file = pairtopair(master_file.name, curr_file.name, count)
         os.unlink(master_file.name)
         master_file = new_file
         os.unlink(curr_file.name)
+    print '\t'.join(header)
     for line in master_file:
         l_a = line.rstrip("\n").split("\t")
         results = '\t'.join(l_a[10].split("*"))
