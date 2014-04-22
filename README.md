@@ -3,9 +3,9 @@ tanzi_sv_scripts
 
 Scripts written as part of the Alzheimer SV Project
 
-# SV Calling Methods
+### SV Calling Methods
 
-### Algorithms
+##### Algorithms
 1. lumpy-sv  
 <https://github.com/arq5x/lumpy-sv>
 2. cn.mops  
@@ -13,6 +13,6 @@ Scripts written as part of the Alzheimer SV Project
 3. delly
 <https://github.com/tobiasrausch/delly>
 
-### Pipeline
+##### Pipeline
 * bcbio-nextgen
 <https://github.com/chapmanb/bcbio-nextgen>
