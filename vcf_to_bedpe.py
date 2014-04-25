@@ -9,7 +9,7 @@ Input:   vcf file with SVs
 
 Output:  BEDPE records to describe the same SVs
 
-Usage:   evaluate_lumpy_results.pl [OPTIONS]
+Usage:   vcf_to_bedpe.py [OPTIONS]
 """
 
 import os
