@@ -28,6 +28,8 @@ def main(vcf_file):
         samples_w.append(f)
     vcf_reader = vcf.Reader(open(vcf_file, 'r'))
     for record in vcf_reader:
+        if len(record.FILTER) > 0:
+            continue
         print_bedpe_record(record, samples_w)
 
 def get_samples(v_file):
