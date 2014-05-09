@@ -77,5 +77,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
     verify_file(args.bedpe)
     verify_file(args.samples)
-    main(args.bedpe, args.samples, args.minsupport)
+    main(args.bedpe, args.samples, int(args.minsupport))
 
