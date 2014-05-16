@@ -45,13 +45,31 @@ def print_bedpe_record(vcf_line, sam_fh):
     for sam in vcf_line.samples:
         i += 1
         if vcf_line.is_sv and sam.is_variant:
-            if vcf_line.INFO['SVTYPE'] != 'DEL':
+            if vcf_line.INFO['SVTYPE'] in ['INS', 'CNV', 'BND']:
+                sys.stderr.write('Unsupported SV type %s in file, it will be skipped!\n' % vcf_line.INFO['SVTYPE'])
                 continue
+            #if vcf_line.INFO['SVTYPE'] != 'DEL':
+            #    continue
+            try:
+                if sam['FT'] != "PASS":
+                    continue
+            except AttributeError:
+                pass
             chrom1  = vcf_line.CHROM
             chrom2  = vcf_line.CHROM
-            strand1 = '+'
-            strand2 = '-'
             score   = sam['GQ'] 
+            if vcf_line.INFO['SVTYPE'] == 'DEL':
+                strand1 = '+'
+                strand2 = '-'
+                svtype  = "TYPE:DELETION"
+            elif vcf_line.INFO['SVTYPE'] == 'INV':
+                strand1 = '+'
+                strand2 = '+'
+                svtype  = "TYPE:INVERSION"
+            elif vcf_line.INFO['SVTYPE'] == 'DUP':
+                strand1 = '-'
+                strand2 = '+'
+                svtype  = "TYPE:DUPLICATION"
             try:
                 name = vcf_line.INFO['DBVARID']
             except KeyError:
@@ -68,7 +86,7 @@ def print_bedpe_record(vcf_line, sam_fh):
                 start2 = vcf_line.INFO['END'] + vcf_line.INFO['CIEND'][0]-1
                 end2   = vcf_line.INFO['END'] + vcf_line.INFO['CIEND'][1]
                 precision = 'IMPRECISE'
-            sam_fh[i].write("\t".join(str(x) for x in [chrom1, start1, end1, chrom2, start2, end2, name, score, strand1, strand2, precision]))
+            sam_fh[i].write("\t".join(str(x) for x in [chrom1, start1, end1, chrom2, start2, end2, name, score, strand1, strand2, svtype, precision]))
             sam_fh[i].write('\n')
 
 if __name__ == "__main__":
