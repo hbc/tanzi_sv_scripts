@@ -30,6 +30,8 @@ def main(vcf_file):
     for record in vcf_reader:
         if len(record.FILTER) > 0:
             continue
+        if missing_fields(record):
+            continue
         print_bedpe_record(record, samples_w)
 
 def get_samples(v_file):
@@ -39,6 +41,15 @@ def get_samples(v_file):
     for s in sam:
         samples.append(s.sample)
     return samples
+
+def missing_fields(v_line):
+    for i in ['SVTYPE','END','CIPOS','CIEND']:
+        try:
+            curr = v_line.INFO[i]
+        except KeyError:
+            sys.stderr.write('requrired vcf INFO field %s not present at %s:%s, call will be skipped\n' % (i,v_line.CHROM,v_line.POS))
+            return True
+    return False
 
 def print_bedpe_record(vcf_line, sam_fh):
     i = -1
