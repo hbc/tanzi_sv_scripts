@@ -63,10 +63,10 @@ then
     usage
 fi
 
-CONC1=$(pairToPair -a $TEST -b $TRUTH | cut -f1-10 | sort | uniq | wc -l)
-CONC2=$(pairToPair -b $TEST -a $TRUTH | cut -f1-10 | sort | uniq | wc -l)
-FP=$(pairToPair -type notboth -a $TEST -b $TRUTH | wc -l)
-FN=$(pairToPair -type notboth -b $TEST -a $TRUTH | wc -l)
+CONC1=$(pairToPair -is -a $TEST -b $TRUTH | cut -f1-10 | sort | uniq | wc -l)
+CONC2=$(pairToPair -is -b $TEST -a $TRUTH | cut -f1-10 | sort | uniq | wc -l)
+FP=$(pairToPair -is -type notboth -a $TEST -b $TRUTH | wc -l)
+FN=$(pairToPair -is -type notboth -b $TEST -a $TRUTH | wc -l)
 
 echo '| Category        | Count |'
 echo '|-----------------|-------|'
@@ -81,26 +81,26 @@ if [[ -f conc.ab.bedpe ]]
 then
     echo "conc.ab.bedpe already exists"
 else
-    pairToPair -a $TEST -b $TRUTH > conc.ab.bedpe
+    pairToPair -is -a $TEST -b $TRUTH > ${TEST%.bedpe}.conc.ab.bedpe
 fi
 
 if [[ -f conc.ba.bedpe ]]
 then
     echo "conc.ba.bedpe already exists"
 else
-    pairToPair -b $TEST -a $TRUTH > conc.ba.bedpe
+    pairToPair -is -b $TEST -a $TRUTH > ${TEST%.bedpe}.conc.ba.bedpe
 fi
 
 if [[ -f disc.fp.bedpe ]]
 then
     echo "disc.fp.bedpe already exists"
 else
-    pairToPair -type notboth -a $TEST -b $TRUTH > disc.fp.bedpe
+    pairToPair -is -type notboth -a $TEST -b $TRUTH > ${TEST%.bedpe}.disc.fp.bedpe
 fi
 
 if [[ -f disc.fn.bedpe ]]
 then
     echo "disc.fn.bedpe already exists"
 else
-    pairToPair -type notboth -b $TEST -a $TRUTH > disc.fn.bedpe
+    pairToPair -is -type notboth -b $TEST -a $TRUTH > ${TEST%.bedpe}.disc.fn.bedpe
 fi
